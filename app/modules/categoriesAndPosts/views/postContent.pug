@@ -1,0 +1,17 @@
+
+extends ../../../templates/master.pug
+
+block content
+    - var postName = [];
+    - var authorName =[];
+    - var date = [];
+    each content in contentForPug
+        - postName = content.postSubject;
+        - authorName = content.author;
+        - date = content.postDate;
+    h1.title #{postName}
+    h3.subtitle by #{authorName} on #{date}
+    br
+    each content in contentForPug
+        ul
+            li= `${content.postContent}`

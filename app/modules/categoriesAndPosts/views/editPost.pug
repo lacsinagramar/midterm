@@ -1,0 +1,26 @@
+
+extends ../../../templates/master.pug
+
+block content
+    - var postName = [];
+    - var authorName =[];
+    - var date = [];
+    - var postID =[];
+    each content in contentForPug
+        - postName = content.postSubject;
+        - authorName = content.author;
+        - date = content.postDate;
+        - postID = content.postID;
+    h1.title #{postName}
+    h3.subtitle by #{authorName} on #{date}
+    br
+    each content in contentForPug
+        textarea(name='postcontent' rows='5' cols='100') #{content.postContent}
+        br
+        br
+        br
+        form(method='post' action=`/post/edited`)
+            button(type='submit' class='button is-success is-focused')
+                span.icon
+                    i.fa.fa-check
+                span Done   

@@ -1,0 +1,14 @@
+//- This is how we extend a template using the 'extends' keyword
+extends ../../../templates/master.pug
+
+//- This is how we insert dynamic content to extended templates
+block content
+    h1.title Welcome to Express Forum!
+    p Below is the list of the current all Post Categories
+    hr
+    center
+        h3.title Categories
+    ul
+        each category in categoryForPug
+            a(href=`/category/${category.ID}`)
+                li= `${category.ID} - ${category.CategoryName}`

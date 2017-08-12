@@ -1,0 +1,29 @@
+//- This is how we extend a template using the 'extends' keyword
+extends ../../../templates/master.pug
+
+//- This is how we insert dynamic content to extended templates
+block content
+    - var categoryName = [];
+    - var categoryID = [];
+    each category in postsForPug
+        - categoryName = category.CategoryName;
+        - categoryID = category.ID
+    h1.title #{categoryName}
+    p Below is the list of all the current posts under #{categoryName}
+    hr
+    center
+        h3.title Posts
+    each post in postsForPug
+        ul
+            li= `${post.author} - ${post.postSubject}`
+                a(href=`/post/${post.postID}`) View this Post
+    hr
+    .title You have something in your Mind?
+    h4.subtitle Post here
+    form(method='post' action=`/post/on-${categoryID}`)
+        input(type='text' name='postsubject' placeholder='Subject')
+        textarea(name='postcontent' rows='5' cols='100' placeholder='What\'s on your mind')
+        button(type='submit' class='button is-info')
+            span.icon
+                i.fa.fa-pencil-square-o
+            span Post
