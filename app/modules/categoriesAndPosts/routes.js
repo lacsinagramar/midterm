@@ -12,7 +12,7 @@ routerForPost.use(authMiddleware.hasAuth);
 
 routerForCategory.get('/:id', (req, res)=>{
     var db = require('../../lib/database')();
-    db.query(`SELECT * FROM \`post\` JOIN \`post_category\` ON post.postCategoryCode = post_category.ID WHERE post.postCategoryCode = ?`,[req.params.id], function (err, results, fields) {
+    db.query(`SELECT * FROM \`post\` JOIN \`post_category\` ON post.postCategoryCode = post_category.ID WHERE post.postCategoryCode = ? AND post.isDeleted != '1'`,[req.params.id], function (err, results, fields) {
         if (err) return res.send(err);
         render(results);
     });
@@ -72,10 +72,19 @@ routerForPost.post('/edit/:id', (req,res)=>{
 routerForPost.post('/edited', (req,res)=>{
     var db = require('../../lib/database')();
     console.log(req.body);
-    db.query(`UPDATE post SET post.postContent = ? WHERE post.postID = ?`,[req.body.postcontent],[req.body.postID], function (err, results, fields) {
+    db.query(`UPDATE post SET post.postContent = ? WHERE post.postID = ?`,[req.body.postcontent, Number(req.body.id)], function (err, results, fields) {
         if (err) return res.send(err);
     });
-    res.redirect('/category');
+    res.redirect('/post/'+req.body.id);
+});
+
+routerForPost.post('/delete/:id', (req,res)=>{
+    var db = require('../../lib/database')();
+    console.log(req.body);
+    db.query(`UPDATE post SET post.isDeleted = '1' WHERE post.postID = ?`,[Number(req.params.id)], function (err, results, fields) {
+        if (err) return res.send(err);
+    });
+    res.redirect('/category/'+req.body.category);
 });
 
 exports.category = routerForCategory;
