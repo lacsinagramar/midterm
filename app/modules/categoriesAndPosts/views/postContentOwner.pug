@@ -6,11 +6,13 @@ block content
     - var authorName =[];
     - var date = [];
     - var postID =[];
+    - var categoryCode = [];
     each content in contentForPug
         - postName = content.postSubject;
         - authorName = content.author;
         - date = content.postDate;
         - postID = content.postID;
+        - categoryCode = content.postCategoryCode;
     h1.title #{postName}
     h3.subtitle by #{authorName} on #{date}
     br
@@ -22,4 +24,10 @@ block content
                 button(type='submit' class='button is-warning is-focused')
                     span.icon
                         i.fa.fa-wrench
-                    span Edit Post    
+                    span Edit Post
+            form(method='post' action=`/post/delete/${postID}`)
+                input(type='hidden' name='category' value=categoryCode)
+                button(type='submit' class='button is-danger is-focused')
+                    span.icon
+                        i.fa.fa-minus
+                    span Delete Post   

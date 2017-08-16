@@ -1,9 +1,13 @@
-//- This is how we extend a template using the 'extends' keyword
 extends ../../../templates/master.pug
 
-//- This is how we insert dynamic content to extended templates
 block content
-    h1.title Welcome to Express Forum!
+    - var hasNoAdmin = typeof reqQuery.notAdmin !== 'undefined' ? 'You\'re not authorized to access that page' : ''
+    if hasNoAdmin
+        section.animated.jackInTheBox
+            .hero-body
+                .notification.is-danger
+                    | #{hasNoAdmin}
+    h1.title.animated.infinite.pulse Welcome to Express Forum!
     p Below is the list of the current all Post Categories
     hr
     center

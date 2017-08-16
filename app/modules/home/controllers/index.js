@@ -6,10 +6,6 @@ module.exports = (req, res) => {
     var db = require('../../../lib/database')();
     db.query('SELECT * FROM post_category', function (err, results, fields) {
         if (err) return res.send(err);
-        render(results);
+        res.render('home/views/index', { categoryForPug: results, reqQuery: req.query });
     });
-
-    function render(category) {
-        res.render('home/views/index', { categoryForPug: category });
-    }
 }
