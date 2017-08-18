@@ -5,13 +5,42 @@ block content
     - var postName = [];
     - var authorName =[];
     - var date = [];
+    - var mayComment =[];
+    - var postID =[];
+    - date = contentForPug[0].postDate;
     each content in contentForPug
         - postName = content.postSubject;
         - authorName = content.author;
-        - date = content.postDate;
+        - mayComment = content.comment;
+        - postID = content.postID;
     h1.title #{postName}
     h3.subtitle by #{authorName} on #{date}
     br
-    each content in contentForPug
-        ul
-            li= `${content.postContent}`
+    h4 #{contentForPug[0].postContent}
+    hr
+    section.hero.is-info.is-bold
+        .hero-body
+            .container
+                center
+                    h3.title Comments
+                if typeof mayComment === 'undefined'
+                    h5.subtitle No Comments here
+                else if typeof mayComment !== 'undefined'
+                    each komment in contentForPug
+                        ul
+                            span.icon
+                            span &nbsp;
+                                i.fa.fa-user
+                                span &nbsp;
+                                strong
+                                    li= `${komment.commentor}`
+                            li= `said ${komment.comment}`
+                            br
+    br
+    br
+    hr
+    h5.title Share your thoughts here!
+    form(method='post' action=`/post/${postID}/comment`)
+        textarea.textarea(rows='5' placeholder='Add Comment here' name='kumment')
+        button(type='sumbit' class='button is-success')
+            span Comment

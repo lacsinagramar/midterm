@@ -48,7 +48,7 @@ module.exports = app => {
         });
 
         /** Define the main index route of the app and what it should do */
-        // var mainModule = process.env.MAIN.split('/');
-        // app.use('/', require(`./modules/${mainModule[0]}/routes`)[mainModule[1]]); 
+        var mainModule = process.env.MAIN.split('/');
+        app.use('/', require(`./modules/${mainModule[0]}/routes`)[mainModule[1]]); 
     });
 }
