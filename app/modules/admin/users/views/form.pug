@@ -4,16 +4,17 @@ block content
     h1.title
         span.fa(class= user ? 'fa-user' : 'fa-user-plus')
         | &nbsp; #{user ? 'Edit': 'Add'} User
-
-    form(method="POST" action=`/admin/users${user ? `/${user.id}?_method=PUT` : ''}`)
+    form(method="POST" action=`/admin/users${user ? `/${user.ID}?_method=PUT` : ''}`)
         .field
-            .label Name
+            .label Username
             .control
-                input.input(type="text" name="name" value= user ? user.name : '')
+                input.input(type="text" name="name" value= user ? user.Username : '')
         .field
-            .label Age
+            .label Birthday
+                if user
+                    .subtitle If you're editing your birthday make sure it is in this format (YYYY-MM-DD)
             .control
-                input.input(type="number" name="age" value= user ? user.age : '')
+                input.input(type= user?"text" :"date" name="birthday" value= user ? user.birthday : '')
         .field
             .label E-mail
             .control
@@ -24,4 +25,4 @@ block content
                 .label Password
                 .control
                     input.input(type="password" name="password")
-        input.button.is-primary(type="submit" value="Submit")
+        input.button.is-success(type="submit" value="Submit")

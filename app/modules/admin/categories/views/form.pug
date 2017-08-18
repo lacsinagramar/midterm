@@ -1,0 +1,12 @@
+extends ../../../../templates/master
+
+block content
+    h1.title
+        span.fa(class= category ? 'fa-user' : 'fa-user-plus')
+        | &nbsp; #{category ? 'Edit': 'Add'} Category
+    form(method="POST" action=`/admin/categories${category ? `/${category.ID}?_method=PUT` : ''}`)
+        .field
+            .label Category Name
+            .control
+                input.input(type="text" name="categoryname" value= category ? category.CategoryName : '')
+        input.button.is-success(type="submit" value="Submit")

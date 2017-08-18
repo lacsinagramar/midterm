@@ -7,12 +7,17 @@ block content
     - var date = [];
     - var postID =[];
     - var categoryCode = [];
+<<<<<<< HEAD
+=======
+    - var mayComment =[];
+    - date = contentForPug[0].postDate;
+>>>>>>> gramar
     each content in contentForPug
         - postName = content.postSubject;
         - authorName = content.author;
-        - date = content.postDate;
         - postID = content.postID;
         - categoryCode = content.postCategoryCode;
+<<<<<<< HEAD
     h1.title #{postName}
     h3.subtitle by #{authorName} on #{date}
     br
@@ -31,3 +36,51 @@ block content
                     span.icon
                         i.fa.fa-minus
                     span Delete Post   
+=======
+        - mayComment = content.comment;
+        - console.log(content)
+    h1.title #{postName}
+    h3.subtitle by #{authorName} on #{date}
+    br
+    h4 #{contentForPug[0].postContent}
+    br
+    br
+    form(method='post' action=`/post/edit/${postID}`)
+        button(type='submit' class='button is-warning is-focused')
+            span.icon
+                i.fa.fa-wrench
+            span Edit Post
+    form(method='post' action=`/post/delete/${postID}`)
+        input(type='hidden' name='category' value=categoryCode)
+        button(type='submit' class='button is-danger is-focused')
+            span.icon
+                i.fa.fa-minus
+            span Delete Post
+    hr
+    section.hero.is-info.is-bold
+        .hero-body
+            .container
+                center
+                    h3.title Comments
+                if typeof mayComment === 'undefined'
+                    h5.subtitle No Comments here
+                else if typeof mayComment !== 'undefined'
+                    each komment in contentForPug
+                        ul
+                            span.icon
+                            span &nbsp;
+                                i.fa.fa-user
+                                span &nbsp;
+                                strong
+                                    li= `${komment.commentor}`
+                            li= `said ${komment.comment}`
+                            br
+    br
+    br
+    hr
+    h5.title Share your thoughts here!
+    form(method='post' action=`/post/${postID}/comment`)
+        textarea.textarea(rows='5' placeholder='Add Comment here' name='kumment')
+        button(type='sumbit' class='button is-success')
+            span Comment
+>>>>>>> gramar

@@ -14,7 +14,21 @@ routerForCategory.get('/:id', (req, res)=>{
     var db = require('../../lib/database')();
     db.query(`SELECT * FROM \`post\` JOIN \`post_category\` ON post.postCategoryCode = post_category.ID WHERE post.postCategoryCode = ? AND post.isDeleted != '1'`,[req.params.id], function (err, results, fields) {
         if (err) return res.send(err);
-        render(results);
+        if (results.length===0)
+        {
+            console.log('wala posts');
+            var db2 = require('../../lib/database')();
+            var queryString = `SELECT * FROM post_category WHERE ID = ${req.params.id}`;
+            db.query(queryString, (err,results,fields)=>{
+                if (err) return console.log(err);
+                res.render('categoriesAndPosts/views/postsOnCategory', { postsForPug: posts, noPosts: 1 });
+            });
+        }
+        else
+        {
+            console.log('meron posts')
+            render(results);
+        }
     });
 
     function render(posts) {
@@ -25,17 +39,39 @@ routerForCategory.get('/:id', (req, res)=>{
 routerForPost.get('/:id', (req,res)=>{
     var db = require('../../lib/database')();
     var date;
-    db.query(`SELECT * FROM post WHERE postID = ?`,[req.params.id], function (err, results, fields) {
+    db.query(`SELECT * FROM post JOIN comment ON post.postID=comment.postCode WHERE post.postID = ?`,[req.params.id], function (err, results, fields) {
         if (err) return res.send(err);
-        results[0].postDate = moment(results[0].postDate).format('MMM Do YYYY');
-        if (results[0].author === req.session.user.Username)
+        if (results.length===0)
         {
-            renderOwner(results);
+            console.log('wala comment');
+            var db2 = require('../../lib/database')();
+            var queryString = `SELECT * FROM post WHERE postID = ${req.params.id}`
+            db.query(queryString, (err,results,fields)=>{
+                 results[0].postDate = moment(results[0].postDate).format('MMM Do YYYY');
+                if (results[0].author === req.session.user.Username)
+                {
+                    renderOwner(results);
+                }
+                else
+                {
+                    render(results);
+                }
+            });
         }
         else
         {
-            render(results);
+            console.log('meron comment');
+            results[0].postDate = moment(results[0].postDate).format('MMM Do YYYY');
+            if (results[0].author === req.session.user.Username)
+            {
+                renderOwner(results);
+            }
+            else
+            {
+                render(results);
+            }
         }
+        
     });
 
     function render(content) {
@@ -85,6 +121,20 @@ routerForPost.post('/delete/:id', (req,res)=>{
         if (err) return res.send(err);
     });
     res.redirect('/category/'+req.body.category);
+<<<<<<< HEAD
+=======
+});
+
+routerForPost.post('/:id/comment', (req,res)=>{
+    console.log(req.params.id)
+    var db = require('../../lib/database')();
+    var queryString = `INSERT INTO comment VALUES(${req.params.id}, "${req.body.kumment}", "${req.session.user.Username}")`;
+
+    db.query(queryString, (err,results,fields) =>{
+        if(err) return console.log(err)
+            res.redirect(`/post/${req.params.id}`)
+    });
+>>>>>>> gramar
 });
 
 exports.category = routerForCategory;

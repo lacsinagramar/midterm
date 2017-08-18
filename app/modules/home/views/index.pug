@@ -14,5 +14,6 @@ block content
         h3.title Categories
     ul
         each category in categoryForPug
+            br
             a(href=`/category/${category.ID}`)
                 li= `${category.ID} - ${category.CategoryName}`

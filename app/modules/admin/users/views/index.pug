@@ -13,18 +13,16 @@ block content
             tr
                 th ID
                 th Name
-                th Age
                 th E-mail
                 th Actions
         
         tbody
             each user in users
                 tr
-                    td= user.id
-                    td: a(href=`/admin/users/${user.id}`)= user.name
-                    td= user.age
+                    td= user.ID
+                    td: a(href=`/admin/users/${user.ID}`)= user.Username
                     td= user.email
                     td
-                        a(href=`/admin/users/${user.id}`): span.fa.fa-edit
+                        a(href=`/admin/users/${user.ID}`): span.fa.fa-edit
                         | &nbsp;
-                        a(href=`/admin/users/${user.id}/remove`): span.fa.fa-remove
+                        a(href=`/admin/users/${user.ID}/remove`): span.fa.fa-remove
