@@ -1,0 +1,11 @@
+extends ../../../templates/master.pug
+
+block content
+    if noMessage === 1
+        h4.title Messages
+        h4.subtitle You have no messages
+    else if noMessage === 0
+        center
+            h4.title Messages
+        each message in messagesForPug
+            

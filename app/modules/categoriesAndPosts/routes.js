@@ -121,8 +121,6 @@ routerForPost.post('/delete/:id', (req,res)=>{
         if (err) return res.send(err);
     });
     res.redirect('/category/'+req.body.category);
-<<<<<<< HEAD
-=======
 });
 
 routerForPost.post('/:id/comment', (req,res)=>{
@@ -134,7 +132,6 @@ routerForPost.post('/:id/comment', (req,res)=>{
         if(err) return console.log(err)
             res.redirect(`/post/${req.params.id}`)
     });
->>>>>>> gramar
 });
 
 exports.category = routerForCategory;
