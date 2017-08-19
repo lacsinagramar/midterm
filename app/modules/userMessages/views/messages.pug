@@ -1,0 +1,35 @@
+extends ../../../templates/master.pug
+
+block content
+    - var noUser = typeof reqQuery.userNotFound !== 'undefined' ? 'User not found' : ''
+    if noUser
+        .notification.is-danger
+            | #{noUser}
+    if noMessage === 1
+        h4.title Messages
+        h4.subtitle You have no messages
+    else if noMessage === 0
+        center
+            h4.title Messages
+        section.hero.is-light
+            .hero-body
+                .columns
+                    .column.is-5
+                        .container
+                            each message in messagesForPug
+                                ul
+                                    a(href=`/message/${message.senderName}`)
+                                        span.icon
+                                            i.fa.fa-user
+                                        span #{message.senderName}
+    br
+    hr
+    h6.title Send a private message below
+    form(method='post' action=`/message/send`)
+        input.input(type='text' placeholder='Username' name='receiver')
+        textarea.textarea(rows='2' placeholder='Your message here' name='messagecontent')
+        button(type='submit' class='button is-success')
+            span.icon
+                i.fa.fa-reply
+            span Send
+

@@ -39,14 +39,15 @@ signUpRouter.post('/', (req,res) =>{
     var db = require('../../lib/database')();
 
     db.query(`SELECT * FROM user WHERE Username="${req.body.username}"`, (err, results, fields) =>{
-        if(err) throw err;
+        if(err) return console.log(err);
+        console.log(results);
         if(results.length !== 0) return res.redirect('/login?usernameExists');
 
         var db2 = require('../../lib/database')();
         var queryString = `INSERT INTO \`user\` (\`Username\`, \`password\`, \`email\`, \`birthday\` ,\`userType\`)
-        VALUES("${req.body.name}", "${req.body.password}", "${req.body.email}", "${req.body.birthday}", "Normal")`;
+        VALUES("${req.body.username}", "${req.body.password}", "${req.body.email}", "${req.body.birthday}", "Normal")`;
         db2.query(queryString, (err, results, fields) => {
-            if (err) throw err;
+            if (err) return console.log(err);
             return res.redirect('/login?success');
         });
 
