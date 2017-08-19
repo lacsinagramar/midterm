@@ -6,5 +6,6 @@
 5. Santos, Jenhel Keeanu
 
 ## Section Effort contribution:
-User can comment on posts
+1. User can comment on posts
+2. Private messaging
 
