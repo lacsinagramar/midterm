@@ -1,0 +1,28 @@
+extends ../../../templates/master.pug
+
+block content
+    - var me = session
+    - var you = keme === 1? threadForPug[0].senderName : kausap
+    - console.log(threadForPug);
+    center
+        h6.subtitle
+            strong #{you}
+    hr
+    each message in threadForPug
+        - console.log(message.messageContent);
+        if message.senderName === you
+            .container
+                .columns
+                    .column.is-5
+                        .bubble.you #{message.messageContent}
+        if message.senderName === me
+            .container
+                .columns
+                    .column
+                        - console.log(message.messageContent);
+                        .bubble.me #{message.messageContent}    
+    form(method='post' action=`/message/send/${you}`)
+        textarea.textarea.is-info(rows='2' name='messagecontent' placeholder='Write a Message')
+        button(type='submit' class='button is-info')
+            span.icon
+                i.fa.fa-pencil
