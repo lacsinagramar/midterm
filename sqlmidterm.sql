@@ -1,16 +1,3 @@
-# Midterm Program
-1. Flores, Rachel Maiden C.
-2. Lacsina, Gramar D.
-3. Lacsina, Luigi D.
-4. Orial, Keynie Mae M.
-5. Santos, Jenhel Keeanu
-
-## Section Effort contribution:
-1. User can comment on posts
-2. Private messaging
-
-## SQL
-Run the sqlmidterm.sql or Copy these
 CREATE DATABASE  IF NOT EXISTS `midterm` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `midterm`;
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
@@ -183,5 +170,3 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2017-09-09 23:38:05
-
-
