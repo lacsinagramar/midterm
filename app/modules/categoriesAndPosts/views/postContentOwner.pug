@@ -14,24 +14,7 @@ block content
         - authorName = content.author;
         - postID = content.postID;
         - categoryCode = content.postCategoryCode;
-    h1.title #{postName}
-    h3.subtitle by #{authorName} on #{date}
-    br
-    each content in contentForPug
-        ul
-            li= `${content.postContent}`
-            br
-            form(method='post' action=`/post/edit/${postID}`)
-                button(type='submit' class='button is-warning is-focused')
-                    span.icon
-                        i.fa.fa-wrench
-                    span Edit Post
-            form(method='post' action=`/post/delete/${postID}`)
-                input(type='hidden' name='category' value=categoryCode)
-                button(type='submit' class='button is-danger is-focused')
-                    span.icon
-                        i.fa.fa-minus
-                    span Delete Post   
+    each content in contentForPug  
         - mayComment = content.comment;
         - console.log(content)
     h1.title #{postName}
